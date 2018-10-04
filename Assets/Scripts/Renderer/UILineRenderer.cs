@@ -1,6 +1,10 @@
 ﻿/// Credit jack.sydorenko, firagon
 /// Sourced from - http://forum.unity3d.com/threads/new-ui-and-line-drawing.253772/
 /// Updated/Refactored from - http://forum.unity3d.com/threads/new-ui-and-line-drawing.253772/#post-2528050
+/// ///
+/// Unity UI Extensions License (BSD)
+///Copyright(c) 2015
+///
 using System.Collections.Generic;
 
 namespace UnityEngine.UI.Extensions
