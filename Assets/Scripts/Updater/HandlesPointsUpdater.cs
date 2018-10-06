@@ -158,6 +158,7 @@ public class HandlesPointsUpdater : UpdaterBase, IMultiSelector
     {
         if (_currentHoveredObject == null)
             return;
+
         ItemSelected = 0;
         _currentSelectionMode = SelectionMode.NoSelection;
 
@@ -169,9 +170,7 @@ public class HandlesPointsUpdater : UpdaterBase, IMultiSelector
 
     public void UpdateMenu()
     {
-
         _editorMenu.UpdateMenu(_currentSelectionMode);
-        //_editorMenu.UpdateMenu(_currentSelectionMode != SelectionMode.NoSelection);
     }
 
     // on up after multiselect
@@ -211,8 +210,6 @@ public class HandlesPointsUpdater : UpdaterBase, IMultiSelector
 
         _currentSelectionMode = SelectionMode.MultiplePoints;
 
-
-
         BezierSegment selected = null;
         List<BezierSegment> segments = _currentSelectedPathObject.BezierCurve;
         for (int i = 0; i < segments.Count; i++)
@@ -233,7 +230,7 @@ public class HandlesPointsUpdater : UpdaterBase, IMultiSelector
         }
         if (ItemSelected == 1)
             _currentBezierSegment = selected;
-        _currentPathObject.UpdatePointsHandlesRenderer();
+        _currentSelectedPathObject.UpdatePointsHandlesRenderer();
     }
 
 

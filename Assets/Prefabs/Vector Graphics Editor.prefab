@@ -3687,6 +3687,9 @@ MonoBehaviour:
   - condition: 13
     cursor: {fileID: 2800000, guid: b2b460ae4bb866d448ad94d72786cd13, type: 3}
     mode: 3
+  freeSpaceEditmode:
+    condition: 6
+    cursor: {fileID: 2800000, guid: b2b460ae4bb866d448ad94d72786cd13, type: 3}
 --- !u!114 &114811654202607228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3792,6 +3795,12 @@ MonoBehaviour:
     cursor: {fileID: 2800000, guid: 9a867197b8017264a95840f48b432348, type: 3}
     mode: 0
     suscribeState: 0
+    unsuscribeState: 7
+  freeSpaceEditmode:
+    condition: 6
+    cursor: {fileID: 2800000, guid: 9a867197b8017264a95840f48b432348, type: 3}
+    mode: 0
+    suscribeState: 7
     unsuscribeState: 7
 --- !u!114 &114865771279876390
 MonoBehaviour:

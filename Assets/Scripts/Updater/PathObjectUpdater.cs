@@ -69,7 +69,7 @@ public class PathObjectUpdater : UpdaterBase, IMultiSelector
 
             _program.UpdateSelectedPathObject(_currentHoveredObject);
 
-            Suscribe(_currentHoveredObject);
+            Suscribe(_currentSelectedObject);
 
             UpdateMenu();
         }

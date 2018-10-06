@@ -7,6 +7,7 @@ public class PathEditmodeCollection : EditmodeCollection
 {
     [Header("Editmodes"), Tooltip("Order in List determines the priority of the editmodes")]
     [SerializeField] List<EditmodePath> pathEditmodes;
+    [SerializeField] EditmodePath freeSpaceEditmode;
 
     PathUpdater _pathUpdater;
 
@@ -30,11 +31,6 @@ public class PathEditmodeCollection : EditmodeCollection
         _updater = _pathUpdater as UpdaterBase;
 
         _updater.Init();
-
-        //if (_editorMenu == null)
-        //    return;
-
-        //_editorMenu.Init(_updater);
     }
 
     protected override void CastEditmodeList()

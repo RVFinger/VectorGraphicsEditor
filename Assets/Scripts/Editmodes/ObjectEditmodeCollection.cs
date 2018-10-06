@@ -8,7 +8,6 @@ public class ObjectEditmodeCollection : EditmodeCollection
     [SerializeField] List<EditmodePathObject> pathObjectEditmodes;
     protected static PathObjectUpdater _pathObjectUpdater;
 
-    //public static PathObjectUpdater PathObjectUpdater { get { return _pathObjectUpdater; } set { _pathObjectUpdater = value; } }
 
     public enum Mode
     {

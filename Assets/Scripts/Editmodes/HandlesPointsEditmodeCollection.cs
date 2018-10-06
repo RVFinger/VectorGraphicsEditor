@@ -59,7 +59,6 @@ public class HandlesPointsEditmodeCollection : EditmodeCollection
     {
         base.Enter();
 
-       // _handlePointsUpdater.UnselectBezierSegment();
         _handlePointsUpdater.UpdateMenu();
         Program.Instance.ShowPointsHandleRenderer(true);
     }
@@ -73,7 +72,6 @@ public class HandlesPointsEditmodeCollection : EditmodeCollection
 
     public override void Hover(bool isHover)
     {
-       // _handlePointsUpdater.HoverPathObject(isHover);
         if (!isHover)
             _handlePointsUpdater.UnhoverCurrentData();
     }
@@ -99,13 +97,6 @@ public class HandlesPointsEditmodeCollection : EditmodeCollection
 
     protected override void SetEditmodeOnUpActions(EditmodeBase mode)
     {
-        //if (mode.condition == PathCondition.FreeSpace)
-        //{
-        //    mode.SetUpFunction(_handlePointsUpdater.MinimizeSelectRect);
-
-        //    return;
-        //}
-
         EditmodeHandlesPoints handlesPoints = mode as EditmodeHandlesPoints;
 
         mode.SetUpFunction(delegate

@@ -74,15 +74,15 @@ public class EditmodeCollection : MonoBehaviour
     public virtual void Init(HoverData hoverData)
     {
 
-            _hoverData = hoverData;
+        _hoverData = hoverData;
 
-            AddListenerToToggle();
-            CastEditmodeList();
-            SetCollectionUpdater();
-            SetEditmodeActions();
+        AddListenerToToggle();
+        CastEditmodeList();
+        SetCollectionUpdater();
+        SetEditmodeActions();
 
-            AddPathObjectHoverConditions();
-            AddKeyboardEventsListener();
+        AddPathObjectHoverConditions();
+        AddKeyboardEventsListener();
 
         _isInitialized = true;
     }
@@ -90,8 +90,8 @@ public class EditmodeCollection : MonoBehaviour
     private void OnDisable()
     {
         StopListeningToKeyboardEvents();
-        if(_updater != null)
-        _updater.OnDisable();
+        if (_updater != null)
+            _updater.OnDisable();
     }
 
     /// <summary>
@@ -120,7 +120,7 @@ public class EditmodeCollection : MonoBehaviour
     /// </summary>
     protected virtual void SetCollectionUpdater()
     {
-        
+
     }
 
     protected virtual void CastEditmodeList() { }
@@ -194,20 +194,6 @@ public class EditmodeCollection : MonoBehaviour
     protected virtual void SetFreeSpaceClickDragUpAction() { }
 
     public virtual void ChangeState() { }
-
-    //bool _hovered =  true;
-    //public void CheckHoverState()
-    //{
-    //    if (!_hovered)
-    //    {
-    //        Hover(true);
-    //        _hovered = true;
-    //    }else
-    //    {
-    //        Hover(false);
-    //        _hovered = false;
-    //    }
-    //}
 
     public void CheckKeyboardInput()
     {
@@ -293,8 +279,8 @@ public class EditmodeBase : System.Object
     public void SetPointer(Func<PathObject, bool> condition)
     {
         checkCondition = condition;
-       // checkBaseCondition = condition;
     }
+
     public void SetPointer(Func<ScalableObject, bool> condition)
     {
         checkCondition = condition;
@@ -320,15 +306,15 @@ public class EditmodeBase : System.Object
     {
         return checkCondition.Invoke(pathObject);
     }
+
     public bool CheckCondition(ScalableObject pathObject)
     {
-        //if(pathObject is AreaObject)
-        if(checkBaseCondition != null)
-        return checkBaseCondition.Invoke(pathObject);
+        if (checkBaseCondition != null)
+            return checkBaseCondition.Invoke(pathObject);
         else
             return checkCondition.Invoke(pathObject as PathObject);
-
     }
+
     public void CallOnDown()
     {
         if (onClickFunction != null)

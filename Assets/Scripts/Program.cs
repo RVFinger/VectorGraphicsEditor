@@ -33,7 +33,7 @@ public class Program : Singleton<Program>
     private List<EditmodeBase> _currentModes = new List<EditmodeBase>();
     private EditmodeCollection _currentCollection = null;
 
-    ScalableObject _hoveredPathObject;
+    ScalableObject _hoveredObject;
 
     private Vector2 _cursorPosition = new Vector2(30, 20);
     private Camera _camera;
@@ -47,11 +47,11 @@ public class Program : Singleton<Program>
     private bool _hovered = true;
 
     // Called when Object hovered
-    public delegate void CurrentHoveredPathObjectChanged(ScalableObject current);
-    public static event CurrentHoveredPathObjectChanged OnHoveredPathObjectChanged;
+    public delegate void CurrentHoveredObjectChanged(ScalableObject current);
+    public static event CurrentHoveredObjectChanged OnHoveredObjectChanged;
 
-    public delegate void CurrentSelectedPathObjectChanged(ScalableObject current);
-    public static event CurrentSelectedPathObjectChanged OnSelectedPathObjectChanged;
+    public delegate void CurrentSelectedObjectChanged(ScalableObject current);
+    public static event CurrentSelectedObjectChanged OnSelectedObjectChanged;
 
     DrawareaObjectsUpdater _drawAreaObjectsUpdater = new DrawareaObjectsUpdater();
     PathObjectsUpdater _pathObjectsUpdater = new PathObjectsUpdater();
@@ -105,28 +105,25 @@ public class Program : Singleton<Program>
     }
 
 
-    public void UpdateHoveredPathObject(ScalableObject pathObject)
+    public void UpdateHoveredPathObject(ScalableObject scalableObject)
     {
         if (_currentUpdater != null)
-            _currentUpdater.SetLastSelected(pathObject);
+            _currentUpdater.SetLastSelected(scalableObject);
 
-        if (pathObject != null)
-        {
-            OnHoveredPathObjectChanged(pathObject);
-        }
+        OnHoveredObjectChanged(scalableObject);
 
         ChangeState();
     }
 
-    public void UpdateSelectedPathObject(ScalableObject pathObject)
+    public void UpdateSelectedPathObject(ScalableObject scalableObject)
     {
-        if (pathObject != null)
-            OnSelectedPathObjectChanged(pathObject);
+        if (scalableObject != null)
+            OnSelectedObjectChanged(scalableObject);
     }
 
     public bool PathObjectHovered()
     {
-        return _hoveredPathObject != null;
+        return _hoveredObject != null;
     }
 
 
@@ -146,8 +143,8 @@ public class Program : Singleton<Program>
 
         bool overObject;
 
-        if (_currentUpdater.OtherObjectHovered(out _hoveredPathObject, out overObject))
-            UpdateHoveredPathObject(_hoveredPathObject);
+        if (_currentUpdater.OtherObjectHovered(out _hoveredObject, out overObject))
+            UpdateHoveredPathObject(_hoveredObject);
 
         if (overObject)
         {
@@ -155,7 +152,7 @@ public class Program : Singleton<Program>
 
             for (int i = 0; i < _currentModes.Count; i++)
             {
-                if (_currentModes[i].Suscribed && _currentModes[i].CheckCondition(_hoveredPathObject))
+                if (_currentModes[i].Suscribed && _currentModes[i].CheckCondition(_hoveredObject))
                 {
                     mode = _currentModes[i];
 
@@ -170,7 +167,8 @@ public class Program : Singleton<Program>
                 _currentCollection.Hover(false);
                 _hovered = false;
             }
-            mode = _currentCollection.FreeSpaceEditmode;
+            if (_currentCollection.FreeSpaceEditmode.Suscribed)
+                mode = _currentCollection.FreeSpaceEditmode;
         }
 
         if (_currentEditmode != mode)
@@ -192,7 +190,7 @@ public class Program : Singleton<Program>
     public void UseCollection(EditmodeCollection collection)
     {
         _hovered = false;
-        UpdateSelectedPathObject(null);
+
         _currentModes = collection.Modes;
         if (_currentCollection != null)
             _currentCollection.Exit();
@@ -211,6 +209,8 @@ public class Program : Singleton<Program>
         _currentUpdater.Unselect();
 
         _currentCollection.Enter();
+        UpdateSelectedPathObject(null);
+        UpdateHoveredPathObject(null);
         _currentUpdater._isPathObjectUpdateAllowed = true;
         ChangeState();
     }

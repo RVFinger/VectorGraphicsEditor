@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpdaterBase {
-
+public class UpdaterBase
+{
     protected PathObject _currentPathObject;
     protected PathObject _currentSelectedPathObject;
     protected ScalableObject _currentHoveredObject;
@@ -16,10 +16,6 @@ public class UpdaterBase {
     public int ItemSelected { get; set; }
     public Vector2 StartSelectionPoint { get; set; }
     public MultiSelectionRectRenderer Renderer { get; set; }
-    //protected int _itemSelected;
-    //protected Vector2 _multiSelectionStartPoint;
-    //protected MultiSelectionRectRenderer _multiSelectionRenderer;
-    //protected Vector2 _currentMousePosition;
 
     public enum SelectionMode
     {
@@ -35,17 +31,16 @@ public class UpdaterBase {
 
     public virtual void Init()
     {
-        Program.OnHoveredPathObjectChanged += UpdatePathObject;
-        Program.OnSelectedPathObjectChanged += UpdateSelectedPathObject;
+        Program.OnHoveredObjectChanged += UpdatePathObject;
+        Program.OnSelectedObjectChanged += UpdateSelectedPathObject;
         _program = Program.Instance;
         Renderer = _program.SelectionRectangle;
-
     }
 
     public virtual void OnDisable()
     {
-        Program.OnHoveredPathObjectChanged -= UpdatePathObject;
-        Program.OnSelectedPathObjectChanged -= UpdateSelectedPathObject;
+        Program.OnHoveredObjectChanged -= UpdatePathObject;
+        Program.OnSelectedObjectChanged -= UpdateSelectedPathObject;
     }
 
     public void SetEditorMenu(EditorMenuBase editorMenu)
@@ -57,8 +52,8 @@ public class UpdaterBase {
     {
         _currentHoveredObject = current;
         _currentPathObject = current as PathObject;
-        if(_currentPathObject != null)
-        _segments = _currentPathObject.BezierCurve;
+        if (_currentPathObject != null)
+            _segments = _currentPathObject.BezierCurve;
     }
 
     void UpdateSelectedPathObject(ScalableObject current)
@@ -74,7 +69,7 @@ public class UpdaterBase {
 
         if (isHover)
         {
-            if(_currentHoveredObject)
+            if (_currentHoveredObject)
                 _currentHoveredObject.Hover(true, true);
 
             _lastHoveredObject = _currentHoveredObject;
@@ -83,32 +78,16 @@ public class UpdaterBase {
 
     public void UpdateInlineArea()
     {
-        _currentPathObject.UpdateInlineArea();
+        if (_currentPathObject)
+            _currentPathObject.UpdateInlineArea();
     }
+
     public virtual void DeleteObject()
     {
-        
-    }
-        //public virtual void StartSelection()
-        //{
-
-        //}
-
-        //public virtual void MinimizeSelectionRectangle()
-        //{
-
-        //}
-
-        //public virtual void MultiSelection()
-        //{
-        //    _currentMousePosition = _program.GetMouseCanvasPosition();
-
-        //    _multiSelectionRenderer.UpdateRectangle(_multiSelectionStartPoint, _currentMousePosition);
-        //    _itemSelected = 0;
-
-        //}
 
     }
+
+}
 
 
 public interface IMultiSelector
