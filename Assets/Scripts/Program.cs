@@ -16,11 +16,12 @@ public class Program : Singleton<Program>
     [SerializeField] List<EditmodeCollection> _editModes;
     [SerializeField] HorizontalLayoutGroup _layout;
     [SerializeField] RectTransform _rectTransform;
-    [SerializeField] Transform _canvas;
+    [SerializeField] Transform _editor;
     [SerializeField] MultiSelectionRectRenderer _selectRectangle;
     public MultiSelectionRectRenderer SelectionRectangle => _selectRectangle;
     [SerializeField] ColorSelector _colorSelector;
     [SerializeField] Colorpicker _colorPicker;
+    [SerializeField] Canvas _canvas;
     public Colorpicker ColorPicker => _colorPicker;
 
     public Vector3 DownLeft;
@@ -36,7 +37,6 @@ public class Program : Singleton<Program>
 
     private Vector2 _cursorPosition = new Vector2(30, 20);
     private Camera _camera;
-    private bool _cameraIsScreenSpace;
     private float _leftEditorBorder;
     private float _rightEditorBorder;
     private float _upEditorBorder;
@@ -70,8 +70,6 @@ public class Program : Singleton<Program>
         _layout.childControlHeight = false;
         _layout.childControlWidth = false;
 
-        _cameraIsScreenSpace = _canvas.GetComponent<Canvas>().renderMode == RenderMode.ScreenSpaceCamera;
-
         if (_colorPicker == null)
             _colorPicker = FindObjectOfType<Colorpicker>();
         _colorPicker.Init();
@@ -79,9 +77,13 @@ public class Program : Singleton<Program>
 
     public void Start()
     {
+        if (_camera == null)
+            _camera = FindObjectOfType<Camera>();
+
+        _canvas.renderMode = RenderMode.ScreenSpaceCamera;
+        _canvas.worldCamera = _camera;
         SetEditorBorders();
-        if(_camera == null)
-        _camera = FindObjectOfType<Camera>() ;
+
         _drawAreaObjectsUpdater.Init(_areaObjectPrefab, _areaObjectParent);
         _drawAreaObjectsUpdater.NewObject(true);
         _pathObjectsUpdater.Init(_pathObjectPrefab, _pathObjectParent);
@@ -93,8 +95,8 @@ public class Program : Singleton<Program>
 
         _rectTransform.GetWorldCorners(Corners);
 
-        DownLeft = _canvas.InverseTransformPoint(Corners[0]);
-        UpRight = _canvas.InverseTransformPoint(Corners[2]);
+        DownLeft = _editor.InverseTransformPoint(Corners[0]);
+        UpRight = _editor.InverseTransformPoint(Corners[2]);
 
         _leftEditorBorder = Corners[0].x;
         _rightEditorBorder = Corners[2].x;
@@ -334,39 +336,26 @@ public class Program : Singleton<Program>
             AllowPathObjectUpdate();
         }
         _isDragging = false;
-    }   
+    }
 
     public Vector2 GetMouseCanvasPosition()
     {
-        Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = 100;
+        return _editor.InverseTransformPoint(WorldPosition());
+    }
 
-        if (_cameraIsScreenSpace)
-        {
-            Vector3 moussePosition = _camera.ScreenToWorldPoint(mousePosition);
-            return _canvas.InverseTransformPoint(moussePosition);
-        }
-        else
-        {
-            return _canvas.InverseTransformPoint(mousePosition);
-        }
+    private Vector2 WorldPosition()
+    {
+        Vector3 mousePosition = Input.mousePosition;
+
+        mousePosition.z = 100;
+        return _camera.ScreenToWorldPoint(mousePosition);
     }
 
     public bool CursorNotOverEditor()
     {
-        Vector3 mousePosition = Input.mousePosition;
-        Vector3 screenPoint = Vector3.zero;
-        if (_cameraIsScreenSpace)
-        {
-            mousePosition.z = 100;
-            screenPoint = _camera.ScreenToWorldPoint(mousePosition);
-        }
-        else
-        {
-            screenPoint = mousePosition;
-            screenPoint.z = 100;
-        }
-        return screenPoint.x < _leftEditorBorder || screenPoint.x > _rightEditorBorder || screenPoint.y > _upEditorBorder || screenPoint.y < _downEditorBorder;
+        Vector3 mousePosition = WorldPosition();
+
+        return mousePosition.x < _leftEditorBorder || mousePosition.x > _rightEditorBorder || mousePosition.y > _upEditorBorder || mousePosition.y < _downEditorBorder;
     }
 }
 

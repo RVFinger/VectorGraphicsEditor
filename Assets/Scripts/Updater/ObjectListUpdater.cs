@@ -72,9 +72,6 @@ public class ObjectListUpdaterBase
 
     public void DuplicateObject()
     {
-        if (_lastSelectedObject == null)
-            return;
-
         bool downLeftset = false;
         Vector2 downLeft = Vector2.zero;
         Vector2 oldDownLeft = Vector2.zero;
@@ -99,7 +96,7 @@ public class ObjectListUpdaterBase
                     translate -= currentObject.DownLeftAnchor;
                 }
 
-                GameObject newPathObject = GameObject.Instantiate(_lastSelectedObject.gameObject, _prefabParent);
+                GameObject newPathObject = GameObject.Instantiate(currentObject.gameObject, _prefabParent);
                 ScalableObject dublicate = newPathObject.GetComponent<ScalableObject>();
                 dublicate.Clone(currentObject, translate);
 

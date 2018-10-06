@@ -2560,15 +2560,15 @@ MonoBehaviour:
     cursor: {fileID: 2800000, guid: f20a227a3f247f943a2f667b11a068b7, type: 3}
   pathObjectEditmodes:
   - condition: 10
-    cursor: {fileID: 2800000, guid: b2b460ae4bb866d448ad94d72786cd13, type: 3}
-    unsuscribeState: 2
-    mode: 2
-  - condition: 8
     cursor: {fileID: 2800000, guid: 9579d9a194ea31f4590f2cdc55fbdcfa, type: 3}
     unsuscribeState: 2
     mode: 2
-  - condition: 9
+  - condition: 8
     cursor: {fileID: 2800000, guid: a1b3af98cb34f674c87ed65e4521d56d, type: 3}
+    unsuscribeState: 2
+    mode: 2
+  - condition: 9
+    cursor: {fileID: 2800000, guid: cc921b9c789a1a54d9580e1a61c512ab, type: 3}
     unsuscribeState: 2
     mode: 2
   - condition: 11
@@ -2962,10 +2962,11 @@ MonoBehaviour:
   - {fileID: 114397004614950014}
   _layout: {fileID: 114689488884484768}
   _rectTransform: {fileID: 224775816368486528}
-  _canvas: {fileID: 224960805690655140}
+  _editor: {fileID: 224960805690655140}
   _selectRectangle: {fileID: 114506299558826216}
   _colorSelector: {fileID: 114003952367224060}
   _colorPicker: {fileID: 0}
+  _canvas: {fileID: 223198689769396846}
   DownLeft: {x: 0, y: 0, z: 0}
   UpRight: {x: 0, y: 0, z: 0}
   SEGMENTS_PER_CURVE: 99
