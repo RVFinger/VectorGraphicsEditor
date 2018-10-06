@@ -60,6 +60,7 @@ public class HandlesPointsEditmodeCollection : EditmodeCollection
         base.Enter();
 
         _handlePointsUpdater.UpdateMenu();
+
         Program.Instance.ShowPointsHandleRenderer(true);
     }
 

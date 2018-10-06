@@ -7,7 +7,6 @@ public class ObjectListUpdaterBase
 {
     List<ScalableObject> _sorted;
     protected List<ScalableObject> objectList = new List<ScalableObject>();
-    public bool _isPathObjectUpdateAllowed;
     protected ScalableObject _lastHoveredObject;
     protected ScalableObject _lastSelectedObject;
     List<ScalableObject> newObjects = new List<ScalableObject>();
@@ -16,6 +15,9 @@ public class ObjectListUpdaterBase
     protected bool _objectUpdateAfterNewObject;
 
     public List<ScalableObject> ObjectList { get { return objectList; } set { objectList = value; } }
+
+    private bool _isPathObjectUpdateAllowed;
+    public bool IsPathObjectUpdateAllowed {  get { return _isPathObjectUpdateAllowed; } set { _isPathObjectUpdateAllowed = value; } }
 
     public void Init(GameObject prefab, Transform prefabParent)
     {
@@ -147,7 +149,6 @@ public class ObjectListUpdaterBase
             return;
         _lastSelectedObject.Unselect();
         _lastSelectedObject.Hover(false);
-        // _lastSelectedObject.ShowBeziersegments(false);
         _lastSelectedObject = null;
         _isPathObjectUpdateAllowed = true;
     }

@@ -13,7 +13,7 @@ using System.Linq;
     (e.g. if Collection Path is active the Editmode Add PathPoint is triggered,
     if the mouse cursor is close to a path and the user clicks.
 */
-public class EditmodeCollection : MonoBehaviour
+public abstract class EditmodeCollection : MonoBehaviour
 {
     [Tooltip("Editormenu (submenu on the right side), can be null")]
     [SerializeField] EditorMenuBase _editorMenu;
@@ -118,18 +118,16 @@ public class EditmodeCollection : MonoBehaviour
     /// <summary>
     /// Each Collection has its own updater, PathObjectCollection a PathObjectUpdater, PathCollection a PathUpdater etc.
     /// </summary>
-    protected virtual void SetCollectionUpdater()
-    {
+    protected abstract void SetCollectionUpdater();
 
-    }
+    protected abstract void CastEditmodeList();
 
-    protected virtual void CastEditmodeList() { }
+    protected abstract void AddPathObjectHoverConditions();
 
-    protected virtual void AddPathObjectHoverConditions() { }
+    protected abstract void AddKeyboardEventsListener();
 
-    protected virtual void AddKeyboardEventsListener() { }
+    protected abstract void StopListeningToKeyboardEvents();
 
-    protected virtual void StopListeningToKeyboardEvents() { }
 
     /// <summary>
     /// Is called when collection is set
@@ -148,7 +146,7 @@ public class EditmodeCollection : MonoBehaviour
             _editorMenu.ShowMenu(false);
     }
 
-    public virtual void Hover(bool isHover) { }
+    public abstract void Hover(bool isHover);
 
     /// <summary>
     /// Every mode has its own Condition which must be met before the mode's action is called.
@@ -187,11 +185,11 @@ public class EditmodeCollection : MonoBehaviour
         }
     }
 
-    protected virtual void SetEditmodeClickAndDragActions(EditmodeBase mode) { }
+    protected abstract void SetEditmodeClickAndDragActions(EditmodeBase mode);
 
-    protected virtual void SetEditmodeOnUpActions(EditmodeBase mode) { }
+    protected abstract void SetEditmodeOnUpActions(EditmodeBase mode);
 
-    protected virtual void SetFreeSpaceClickDragUpAction() { }
+    protected abstract void SetFreeSpaceClickDragUpAction();
 
     public virtual void ChangeState() { }
 

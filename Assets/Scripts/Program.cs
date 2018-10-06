@@ -136,7 +136,7 @@ public class Program : Singleton<Program>
 
         if (CursorNotOverEditor())
         {
-            SwitchTexture(null);
+            SetCursorTexture(null);
             _currentEditmode = null;
             return;
         }
@@ -167,8 +167,7 @@ public class Program : Singleton<Program>
                 _currentCollection.Hover(false);
                 _hovered = false;
             }
-            if (_currentCollection.FreeSpaceEditmode.Suscribed)
-                mode = _currentCollection.FreeSpaceEditmode;
+            mode = _currentCollection.FreeSpaceEditmode;
         }
 
         if (_currentEditmode != mode)
@@ -176,13 +175,13 @@ public class Program : Singleton<Program>
             _currentEditmode = mode;
             Cursor.SetCursor(_currentEditmode.cursor, _cursorPosition, CursorMode.Auto);
 
-            SwitchTexture(_currentEditmode.cursor);
+            SetCursorTexture(_currentEditmode.cursor);
         }
 
         _currentCollection.CheckKeyboardInput();
     }
 
-    void SwitchTexture(Texture2D texture)
+    void SetCursorTexture(Texture2D texture)
     {
         Cursor.SetCursor(texture, _cursorPosition, CursorMode.Auto);
     }
@@ -210,8 +209,7 @@ public class Program : Singleton<Program>
 
         _currentCollection.Enter();
         UpdateSelectedPathObject(null);
-        UpdateHoveredPathObject(null);
-        _currentUpdater._isPathObjectUpdateAllowed = true;
+        _currentUpdater.IsPathObjectUpdateAllowed = true;
         ChangeState();
     }
 
@@ -238,18 +236,17 @@ public class Program : Singleton<Program>
     public void AllowPathObjectUpdate()
     {
         _currentUpdater.Unselect();
-        //_pathObjectsUpdater._isPathObjectUpdateAllowed = true;
         ChangeState();
     }
 
     public bool IsPathObjectUpdateAllowed()
     {
-        return _pathObjectsUpdater._isPathObjectUpdateAllowed;
+        return _pathObjectsUpdater.IsPathObjectUpdateAllowed;
     }
 
     public void SetPathObjectUpdate(bool isAllowed)
     {
-        _pathObjectsUpdater._isPathObjectUpdateAllowed = isAllowed;
+        _pathObjectsUpdater.IsPathObjectUpdateAllowed = isAllowed;
     }
 
     public void NewPathObject()

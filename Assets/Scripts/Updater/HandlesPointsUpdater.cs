@@ -164,7 +164,9 @@ public class HandlesPointsUpdater : UpdaterBase, IMultiSelector
 
         StartSelectionPoint = _program.GetMouseCanvasPosition();
 
-        for (int i = 0; i < _segments.Count; i++)
+        if (_currentSelectedPathObject == null)
+            return;
+        for (int i = 0; i < _selectedSegments.Count; i++)
             _segments[i].PointSelected = false;
     }
 
