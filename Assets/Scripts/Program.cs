@@ -87,6 +87,8 @@ public class Program : Singleton<Program>
         _drawAreaObjectsUpdater.Init(_areaObjectPrefab, _areaObjectParent);
         _drawAreaObjectsUpdater.NewObject(true);
         _pathObjectsUpdater.Init(_pathObjectPrefab, _pathObjectParent);
+
+        _editModes[0].CollectionToggle.isOn = true;
     }
 
     public void SetEditorBorders()

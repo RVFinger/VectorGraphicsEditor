@@ -19,6 +19,7 @@ public abstract class EditmodeCollection : MonoBehaviour
     [SerializeField] EditorMenuBase _editorMenu;
     [Tooltip("Toggle which sets Collection")]
     [SerializeField] Toggle _toggle;
+    public Toggle CollectionToggle => _toggle;
     [SerializeField] bool _usePathObjectList;
 
     public bool UsePathObjectList => _usePathObjectList;
